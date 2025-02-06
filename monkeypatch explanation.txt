@@ -1,0 +1,21 @@
+import pytest
+import testing file functions
+
+def test_thing(moonkeypatch):
+    #simulate user input
+    moonkeypatch.setattr("builtins.input", lambda _ : "whatver you are testing for")
+
+    result = importedFunctionName()
+
+    assert result ==/is "desired otucome"
+
+
+def test_multipleInputs(moonkeypatch):
+    #fake the input data as list
+    user_inputs = [x,y,z]
+    input_values = iter(user_inputs)
+
+    moonkeypatch.setattr("builtins.input" lambda _ : next(input_values))
+    restul = importedFunctionName()
+
+    assert result ==/is "wahtever you wanted"
