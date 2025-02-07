@@ -1,5 +1,5 @@
 import pytest
-
+import functools
 
 list1 = [1,2,54,66,7,3,2,76,8,4,3,4,55,2,7,335,9]
 list2 = [1,2,3,4,5,6,7,8,9,0]
@@ -100,3 +100,9 @@ print(type(my_list) == list)
 x = 1.1
 
 print(not isinstance(x,(float,int)))
+
+
+#reduce and lambda
+my_list = [1,2,3,4,5,6,7,8,9,10]
+sum = functools.reduce(lambda agg, item : agg + item, my_list)
+print(sum) #55
