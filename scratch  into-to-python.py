@@ -102,7 +102,7 @@ x = 1.1
 print(not isinstance(x,(float,int)))
 
 
-#reduce and lambda
+#reduce and
 my_list = [1,2,3,4,5,6,7,8,9,10]
 sum = functools.reduce(lambda agg, item : agg + item, my_list)
-print(sum) #55
+print(sum)
