@@ -6,19 +6,23 @@ def char_count(str1):
   #     key= lambda x:x[1], reverse=True)
     
     
-#     answer = []
-#     for x in set(stripStr):
-#         answer.append([x,stripStr.count(x)])
+    answer = []
+    for x in set(stripStr):
+        answer.append([x,stripStr.count(x)])
         
         
-#     return sorted(answer, key= lambda x: (x[1],x[0]), reverse = True)
+    return( sorted(answer, key= lambda x: (-x[1],x[0])) )
 
 # # print(char_count("aaabbc"))
 
-    dict1 = {char:stripStr.count(char) for char in set(stripStr)}
-    list1 = [stripStr.count(x) for x in set(stripStr)]
-    print (dict1)
-    print(list1)
+    # dict1 = {char:stripStr.count(char) for char in set(stripStr)}
+    # list1 = (sorted([x, stripStr.count(x) for x in set(stripStr)], key = lambda x: (-x[1],x[0])))
 
-char_count("an apple a day will keep the doctor away")
+
+
+    # print (dict1)
+    # print(list1)
+
+# print(char_count("an apple a day will keep the doctor away"))
 # char_count()
+

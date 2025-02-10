@@ -13,7 +13,7 @@ def linear_search_global(value_to_find, array_to_search_through):
     else: return False
 
 
-testArr = [1,5,7,9,12,17,12,6,9,84,76,2,55,12,4]
-testVal = 12
-print(linear_search(testVal,testArr))
-print(linear_search_global(testVal,testArr))
+# testArr = [1,5,7,9,12,17,12,6,9,84,76,2,55,12,4]
+# testVal = 12
+# print(linear_search(testVal,testArr))
+# print(linear_search_global(testVal,testArr))
