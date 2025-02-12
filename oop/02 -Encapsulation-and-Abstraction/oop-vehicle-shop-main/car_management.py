@@ -7,6 +7,10 @@ class CarManager:
     id = 0
 
     @classmethod
+    def __repr__(cls):
+        return (f"There are {cls.total_cars} cars in the shop\n {cls.all_cars}")
+
+    @classmethod
     def delay(cls):
         input("Press any key to continue")
         CarManager.clearScreen()
@@ -15,17 +19,22 @@ class CarManager:
     def displayCars(cls):
         if len(CarManager.all_cars) > 0:
             print("These are the cars in your inventory:\n")
+            cls.delay()
+            pass
         for x,y in enumerate(CarManager.all_cars):
-            print(f"ID# {y.id}: {y.year} {y.model} {y.make}")
+            # tMileage = int(y.mileage)
+            print(f"ID# {y.id}: {y.year} {y.model} {y.make} with {int(y.mileage):,} miles. {f'It could use some work: {y.services}' if len(y.services) > 0 else ''}")
         # CarManager.delay()
 
 
     @classmethod
     def getMenuInput(cls):
         userInput = input()
+        
         try:
             userInput = int(userInput)
         except:
+            return False
             pass
         return userInput
 
@@ -62,7 +71,7 @@ class CarManager:
                     "make" : make,
                     "model" : model,
                     "year" : year,
-                    "mileage" : mileage,
+                    "mileage" : mileage
                 }
                 # CarManager.id +=1
                 CarManager.all_cars.append(CarManager(**new_vehicle_dictionary))
@@ -70,6 +79,7 @@ class CarManager:
                 print(f'''
                       Added your: {year} {make} {model}
                       Reference ID: {len(CarManager.all_cars)}''')
+                CarManager.total_cars +=1
                 CarManager.delay()
             else:
                 print("\nThe data entered was not valid, try again\n")
@@ -81,32 +91,33 @@ class CarManager:
         CarManager.clearScreen()
         if len(CarManager.all_cars) == 0:
             print("\nThere are no cars to service")
+        
             CarManager.delay()
             pass
         else:
             CarManager.displayCars()
-        print(f'''\n
+            print(f'''\n1
               Select a car to service by entering its ID#: \n
 ''')
-        menuitem = CarManager.getMenuInput()
+            menuitem = cls.getMenuInput()-1
+            if not cls.validateInput([menuitem],int):
+                pass
 
-        if 0 < menuitem <= len(CarManager.all_cars):
-            service_rendered = input("what was the service?\n")
-            CarManager.validateInput([service_rendered],str)
-            CarManager.service_setter(menuitem,service_rendered)
-            pass
+            if -1 < menuitem < len(CarManager.all_cars):
+                service_rendered = input("what was the service?\n")
+                if not cls.validateInput([service_rendered],str):
+                    pass
+                # print(f"{service_rendered} and car # {menuitem} and\n {len(cls.all_cars)}")
+                cls.service_setter(menuitem,service_rendered)
+                cls.clearScreen()
+                pass
 
-    @property
-    def service(self):
-        return self.id
     
-    @service.setter
-    def service_setter(self,carID,serviceItem):
-        CarManager.validateInput([carID,int])
-        CarManager.validateInput(serviceItem,str)
-        if self.id <= len(CarManager.all_cars):
-            self.services.append(serviceItem)
-            self.id = carID
+    # @service.setter
+    @classmethod
+    def service_setter(cls,carID,serviceItem):
+        cls.all_cars[carID].services.append(serviceItem)
+            
 
     
     def __rpr__(self):
@@ -121,18 +132,20 @@ class CarManager:
     
 # <---- essentially the car class:
     def __init__(self,make,model,year,mileage):
-        self.id = CarManager.id + 1
+        self.id = self.id + 1
         self.make = make
         self.model = model
         self.year = year
         self.mileage = mileage
         self.services = []
+        CarManager.id +=1
 
 #----------------Main program--------------------------------
-
+ca1 = CarManager
+print(ca1)
 running = True
 while running:
-
+    CarManager.clearScreen()
     print(f'''
             1. Add a car
             2. View all cars
@@ -158,18 +171,18 @@ while running:
             pass
         case 2:
             CarManager.clearScreen()
+            
             if len(CarManager.all_cars) > 0:
-                print("These are the cars in your inventory:\n")
-                for x,y in enumerate(CarManager.all_cars):
-                    print(f"ID# {y.id}: {y.year} {y.model} {y.make}")
+                
+                CarManager.displayCars()
                 CarManager.delay()
                 CarManager.clearScreen()
                 pass
             else:
                 print("There are no cars in your inventory, try adding some\n")
                 CarManager.delay = input("Press any key to continue")
-                CarManager.clearScreen()
-                pass
+            CarManager.clearScreen()
+            pass
         case 3:
             CarManager.clearScreen()
             if len(CarManager.all_cars) >0:
@@ -195,5 +208,4 @@ while running:
         
 
 
-ca1 = CarManager("Ford","Escort",1997,105891)
-print(ca1)
+# ca1 = CarManager("Ford","Escort",1997,105891)
